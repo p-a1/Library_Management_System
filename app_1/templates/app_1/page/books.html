@@ -1,0 +1,91 @@
+{% extends "app_1\index.html" %}
+{% load static %}
+{%block content%}
+<div style="direction: rtl;" class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <div   class="content-wrapper p-5">
+      <!-- Content Header (Page header) -->
+
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>الكتب</h1>
+                </div>
+ 
+              </div>
+          </section>
+      
+          <!-- Main content -->
+          <section class="content">                  
+            <!-- Default box -->
+            <div class="card card-solid">
+              <div class="card-body pb-0">
+                <div class="row d-flex align-items-stretch">
+                  <!-- بداية الكتاب -->
+                  {% for book in books  %}
+                    {% if book.photo %}
+                    <div style='background:url({{book.photo}});background-size:cover;' class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch ">
+                    {% else %}
+                      <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch ">
+                    {% endif %}
+                      <div  id="" class="card bg-light">
+                        <div  class="card-header text-muted border-bottom-0">
+                         {{book.category.name}}
+                        </div>
+                        <div class="card-body pt-0">
+                          <div class="row">
+                            <div class="col-7">
+                              <h2 class="lead"><b>{{book.title}}</b></h2>
+                              <ul class="  fa-ul text-muted">
+                                {% if book.status == 'sold' %}
+                                  <li class="large text-danger"><span class="fa-li"></span>{{book.status}}</li>
+                                {% elif book.status == 'rented' %}
+                                  <li class="large text-warning"><span class="fa-li"></span>{{book.status}}</li>
+                                {% else %}
+                                  <li class="large text-success"><span class="fa-li"></span>{{book.status}}</li>
+                                {% endif %}
+                                <li class="large"><span class="fa-li"></span>${{book.price}}</li>
+                              </ul>
+                            </div>
+                            <div class="col-5 text-center">
+                              {% if book.photo_author %}
+                                  <img style="height: 120px; width: 120px;"  src="{{book.photo_author.url}}" alt="" class="img-circle img-fluid">
+                              {% else %}
+                                  <img style="height: 120px; width: 120px;"  src="{%static 'app_1/dist/img/photo1.png'%}" alt="" class="img-circle img-fluid">
+                              {% endif %}
+                              </div>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <div class="text-right">
+                            <a href="#" class="btn btn-sm bg-danger">
+                              <i class="fas fa-trash"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-primary">
+                              <i class="fas fa-book"></i> تعديل
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <!-- نهاية الكتاب -->
+                   {% endfor %}
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+      
+          </section>
+          <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+      
+    </div>
+    <!-- /.content-wrapper -->
+  </div>
+
+
+{% endblock %}
